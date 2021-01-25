@@ -14,16 +14,15 @@ def consolidate_cart(cart)
   con_cart = [];
 
   cart.each do |x|
-    if find_item_by_name_in_collection(x, cart)
-      con_cart[x][:count] = 1 
+    if find_item_by_name_in_collection(x, con_cart)
+      con_cart[x][:count] += 1 
     end 
-    binding.pry
-    if con_cart[x]
-      con_cart[x][:count] +=1
+    if !find_item_by_name_in_collection(x, con_cart)
+      x[:count] = 1
+      con_cart << x
     end
+    con_cart
   end
-
-  con_cart
   #
   # REMEMBER: This returns a new Array that represents the cart. Don't merely
   # change `cart` (i.e. mutate) it. It's easier to return a new thing.
