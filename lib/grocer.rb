@@ -12,16 +12,14 @@ def consolidate_cart(cart)
   # binding.pry
   # Consult README for inputs and outputs
   con_cart = [];
-
+  cart.each{|x| x[:count] = 1}
+  # binding.pry
   cart.each do |x|
-    if find_item_by_name_in_collection(x, con_cart)
-      con_cart[x][:count] += 1 
-    end 
-    if !find_item_by_name_in_collection(x, con_cart)
-      x[:count] = 1
-      con_cart << x
+    con_cart << x if !find_item_by_name_in_collection(x[:item], con_cart)
+
+    if find_item_by_name_in_collection(x[:item], con_cart)
+      x[:count] += 1
     end
-    con_cart
   end
   #
   # REMEMBER: This returns a new Array that represents the cart. Don't merely
